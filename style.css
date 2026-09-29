@@ -182,3 +182,20 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 #pericia::before{background-image:url(escritorio-sala.webp)}
 #contato::before{background-image:url(escritorio-placa.webp)}
 #pericia .wrap,#contato .wrap{position:relative}
+
+/* Cadastro no Radar Tributário */
+.signup{padding-block:56px}
+.signup-card{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;padding:44px;border-radius:16px;border:1px solid rgba(214,178,94,.45);background:radial-gradient(90% 120% at 0% 0%,rgba(214,178,94,.20),rgba(214,178,94,0) 60%),linear-gradient(160deg,rgba(52,43,29,.92),rgba(20,17,13,.94));box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1px rgba(255,236,180,.05) inset}
+.signup-card::before{content:"";position:absolute;inset:-1px;border-radius:16px;padding:1px;background:linear-gradient(120deg,var(--gold-1),rgba(214,178,94,0) 40%,rgba(214,178,94,0) 60%,var(--gold-2));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.signup-text{display:grid;gap:14px}
+.signup-text h2{font-size:clamp(30px,4vw,44px)}
+.signup-points{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px;color:var(--text);font-size:16px}
+.signup-points li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px;align-items:center}
+.signup-points li::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--gold-grad);box-shadow:0 0 10px rgba(214,178,94,.6)}
+.signup-form{display:grid;gap:12px;background:rgba(10,9,7,.45);border:1px solid var(--line);border-radius:12px;padding:24px}
+.consent{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;align-items:start;font-size:13.5px;color:var(--muted);letter-spacing:0;cursor:pointer}
+.consent input{width:18px;height:18px;margin:2px 0 0;accent-color:#d3aa4c}
+.consent a{color:var(--gold-2)}
+.signup-form .btn{justify-content:center}
+.signup-form.enviado .field,.signup-form.enviado .consent,.signup-form.enviado .btn{display:none}
+@media (max-width:860px){.signup-card{grid-template-columns:1fr;padding:28px 22px}}

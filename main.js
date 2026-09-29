@@ -53,3 +53,24 @@
     document.getElementById('form-aviso').textContent='Abrimos o WhatsApp com a sua mensagem. É só tocar em enviar.';
   })}
 })();
+
+// Cadastro no Radar Tributário: envia para o Google Formulários do escritório
+(function(){
+  var f=document.getElementById('form-radar');if(!f)return;
+  var aviso=document.getElementById('radar-aviso');
+  var URL='https://docs.google.com/forms/d/e/1FAIpQLSffA4qdro9zl7PSr3W__dp3M0A0Dd-WlUu0wTuc-14967X9Vw/formResponse';
+  var CONSENT='Sim, autorizo a LG Serviços Contábeis a usar meus dados para enviar atualizações e sei que posso cancelar a qualquer momento.';
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var nome=f.nome.value.trim(),email=f.email.value.trim(),perfil=f.perfil.value;
+    if(!nome||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)||!perfil){aviso.textContent='Preencha nome, um e-mail válido e selecione o seu perfil.';return}
+    if(!f.lgpd.checked){aviso.textContent='Para receber as atualizações, marque a autorização de uso dos dados.';return}
+    var d=new URLSearchParams();
+    d.append('entry.1675006329',nome);d.append('entry.2044017432',email);d.append('entry.78537103',f.whats.value.trim());
+    d.append('entry.1015147339',perfil);d.append('entry.475540661',CONSENT);
+    var b=f.querySelector('button');b.disabled=true;b.textContent='Enviando...';
+    fetch(URL,{method:'POST',mode:'no-cors',body:d}).then(function(){
+      f.classList.add('enviado');aviso.textContent='Cadastro recebido, '+nome.split(' ')[0]+'! Assim que o escritório confirmar, você passa a receber o Radar Tributário no seu e-mail.';
+    }).catch(function(){b.disabled=false;b.textContent='Quero me cadastrar';aviso.textContent='Não foi possível enviar agora. Verifique a sua conexão e tente de novo.'});
+  });
+})();
