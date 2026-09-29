@@ -161,12 +161,24 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(217,178
 /* Fundo suave: preto mesclado com dourado */
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(55% 45% at 88% 0%,rgba(214,178,94,.14),rgba(214,178,94,0) 70%),radial-gradient(45% 40% at 0% 42%,rgba(214,178,94,.08),rgba(214,178,94,0) 70%),radial-gradient(55% 45% at 100% 100%,rgba(176,136,62,.11),rgba(176,136,62,0) 70%),linear-gradient(160deg,#1a150f 0%,#100e0b 48%,#17130d 100%)}
 /* Destaque do topo: símbolo LG com o logo antigo sombreado por trás */
-.hero-logo{position:relative;justify-self:center;width:min(380px,80vw);aspect-ratio:1;display:grid;place-items:center}
+.hero-brand{justify-self:center;display:grid;justify-items:center;gap:18px}
+.hero-logo{position:relative;width:min(380px,80vw);aspect-ratio:1;display:grid;place-items:center}
 .hero-logo::before{content:"";position:absolute;inset:-10%;border-radius:50%;background:radial-gradient(circle,rgba(214,178,94,.22),rgba(214,178,94,0) 65%);pointer-events:none}
 .hero-logo .wm{position:absolute;left:50%;top:50%;width:165%;max-width:none;transform:translate(-50%,-50%);opacity:.13;pointer-events:none}
 .hero-logo .sym{position:relative;width:100%;height:100%;object-fit:cover;-webkit-mask-image:radial-gradient(closest-side,#000 80%,rgba(0,0,0,0) 100%);mask-image:radial-gradient(closest-side,#000 80%,rgba(0,0,0,0) 100%);filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
-@media (max-width:860px){.hero-logo{width:min(270px,72vw);order:-1}.hero-logo .wm{width:150%}}
+@media (max-width:860px){.hero-brand{order:-1}.hero-logo{width:min(270px,72vw)}.hero-logo .wm{width:150%}}
 /* Quem somos: foto da caneca sombreada ao fundo */
 #sobre{position:relative;overflow:hidden}
 #sobre::before{content:"";position:absolute;inset:0;background:url(caneca.webp) center/cover no-repeat;opacity:.2;filter:sepia(.35) saturate(.8) brightness(.8);-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 25%,#000 75%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 25%,#000 75%,rgba(0,0,0,0) 100%);pointer-events:none}
 #sobre .wrap{position:relative}
+
+/* Slogan abaixo do símbolo */
+.slogan{position:relative;margin:0;font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(22px,2.4vw,28px);letter-spacing:.02em;text-align:center;text-wrap:balance}
+.slogan::before,.slogan::after{content:"";display:inline-block;width:34px;height:1px;vertical-align:middle;margin:0 12px;background:linear-gradient(90deg,rgba(214,178,94,0),var(--gold-2))}
+.slogan::after{background:linear-gradient(90deg,var(--gold-2),rgba(214,178,94,0))}
+/* Fotos do escritório sombreadas ao fundo */
+#pericia,#contato{position:relative;overflow:hidden}
+#pericia::before,#contato::before{content:"";position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;opacity:.16;filter:sepia(.4) saturate(.7) brightness(.85);-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 25%,#000 75%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 25%,#000 75%,rgba(0,0,0,0) 100%);pointer-events:none}
+#pericia::before{background-image:url(escritorio-sala.webp)}
+#contato::before{background-image:url(escritorio-placa.webp)}
+#pericia .wrap,#contato .wrap{position:relative}
