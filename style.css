@@ -13,7 +13,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{margin:0;background:var(--ink);color:var(--text);font-family:var(--f-body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#100e0b;color:var(--text);font-family:var(--f-body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 a{color:var(--gold-2)}
 a:hover{color:var(--gold-1)}
@@ -28,7 +28,7 @@ p{margin:0}
 .lead{color:var(--muted);font-size:18.5px;max-width:62ch}
 
 /* Cabeçalho */
-.topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,rgba(10,9,7,.96),rgba(10,9,7,.88));backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,rgba(18,15,11,.94),rgba(18,15,11,.82));backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:74px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand img{height:50px;width:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
@@ -54,8 +54,8 @@ p{margin:0}
 .btn svg{width:18px;height:18px;flex-shrink:0}
 
 /* Hero */
-.hero{position:relative;overflow:hidden;background:radial-gradient(90% 120% at 78% 30%,#2a251b 0%,#15120d 45%,var(--ink) 80%)}
-.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:120px;background:linear-gradient(180deg,rgba(10,9,7,0),var(--ink))}
+.hero{position:relative;overflow:hidden;background:radial-gradient(60% 85% at 78% 40%,rgba(214,178,94,.16) 0%,rgba(214,178,94,.05) 45%,rgba(0,0,0,0) 75%)}
+.hero::after{content:none}
 .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:48px;align-items:center;padding-block:72px 96px}
 .hero h1{font-size:clamp(40px,6vw,70px);margin:14px 0 20px}
 .hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
@@ -66,7 +66,7 @@ p{margin:0}
 /* Seções */
 section{padding-block:84px}
 .sec-head{display:grid;gap:12px;margin-bottom:40px}
-.band{background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 18%,var(--ink-2) 82%,var(--ink) 100%)}
+.band{background:linear-gradient(180deg,rgba(214,178,94,0) 0%,rgba(214,178,94,.05) 22%,rgba(214,178,94,.05) 78%,rgba(214,178,94,0) 100%)}
 .rule{height:1px;border:0;margin:0;background:linear-gradient(90deg,rgba(214,178,94,0),var(--gold-3) 50%,rgba(214,178,94,0))}
 
 .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
@@ -74,14 +74,14 @@ section{padding-block:84px}
 @media (max-width:960px){.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.grid-3,.grid-2{grid-template-columns:1fr}}
 
-.card{background:linear-gradient(160deg,var(--ink-3) 0%,var(--ink-2) 60%,#0f0d0a 100%);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);display:grid;gap:12px;align-content:start;min-width:0}
+.card{background:linear-gradient(160deg,rgba(46,39,28,.82) 0%,rgba(24,20,15,.84) 60%,rgba(16,14,11,.88) 100%);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);display:grid;gap:12px;align-content:start;min-width:0}
 .card .ico{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#3a3223,#16130e);border:1px solid var(--gold-3);color:var(--gold-2)}
 .card .ico svg{width:22px;height:22px}
 .card p{color:var(--muted);font-size:16px}
 .card ul{margin:0;padding-left:18px;color:var(--muted);font-size:15.5px;display:grid;gap:4px}
 
 /* Perícia */
-.pericia{background:radial-gradient(80% 120% at 15% 50%,#231f17 0%,#12100c 55%,var(--ink) 100%)}
+.pericia{background:radial-gradient(65% 100% at 12% 50%,rgba(214,178,94,.12) 0%,rgba(214,178,94,.03) 50%,rgba(0,0,0,0) 80%)}
 .pericia .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
 @media (max-width:860px){.pericia .wrap{grid-template-columns:1fr}}
 .checklist{list-style:none;margin:0;padding:0;display:grid;gap:14px}
@@ -91,7 +91,7 @@ section{padding-block:84px}
 
 /* Radar */
 .radar-list{display:grid;gap:14px}
-.news{background:linear-gradient(160deg,var(--ink-3),var(--ink-2));border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;display:grid;gap:8px;min-width:0}
+.news{background:linear-gradient(160deg,rgba(46,39,28,.8),rgba(22,19,14,.85));border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;display:grid;gap:8px;min-width:0}
 .news .meta{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:13px;color:var(--dim)}
 .pill{font-size:11.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid}
 .pill.critico{color:var(--crit);border-color:rgba(255,143,134,.4);background:rgba(255,143,134,.08)}
@@ -124,7 +124,7 @@ textarea{min-height:120px;resize:vertical}
 .note{font-size:13.5px;color:var(--dim)}
 
 /* Páginas internas */
-.page-head{background:radial-gradient(90% 140% at 80% 0%,#241f16 0%,#12100c 55%,var(--ink) 100%);padding-block:64px 48px;border-bottom:1px solid var(--line)}
+.page-head{background:radial-gradient(70% 130% at 82% 0%,rgba(214,178,94,.16) 0%,rgba(214,178,94,.04) 50%,rgba(0,0,0,0) 80%);padding-block:64px 48px;border-bottom:1px solid var(--line)}
 .page-head h1{font-size:clamp(36px,5vw,56px);margin-top:10px}
 .page-head p{margin-top:14px}
 .prose{max-width:720px;display:grid;gap:18px}
@@ -143,7 +143,7 @@ tr:last-child td{border-bottom:0}
 .links-grid .dom{font-size:13px;color:var(--dim);word-break:break-all}
 
 /* Rodapé */
-footer{border-top:1px solid var(--line);background:#070605;padding-block:48px 32px;font-size:14.5px;color:var(--muted)}
+footer{border-top:1px solid var(--line);background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.6));padding-block:48px 32px;font-size:14.5px;color:var(--muted)}
 footer .cols{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:28px}
 @media (max-width:860px){footer .cols{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){footer .cols{grid-template-columns:1fr}}
@@ -157,3 +157,16 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(217,178
 .wa-float{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#f3dc93,#b98d33);color:#15110a;box-shadow:0 12px 28px rgba(0,0,0,.55);text-decoration:none}
 .wa-float svg{width:30px;height:30px}
 .wa-float:hover{color:#15110a;transform:translateY(-2px)}
+
+/* Fundo suave: preto mesclado com dourado */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(55% 45% at 88% 0%,rgba(214,178,94,.14),rgba(214,178,94,0) 70%),radial-gradient(45% 40% at 0% 42%,rgba(214,178,94,.08),rgba(214,178,94,0) 70%),radial-gradient(55% 45% at 100% 100%,rgba(176,136,62,.11),rgba(176,136,62,0) 70%),linear-gradient(160deg,#1a150f 0%,#100e0b 48%,#17130d 100%)}
+/* Destaque do topo: símbolo LG com o logo antigo sombreado por trás */
+.hero-logo{position:relative;justify-self:center;width:min(380px,80vw);aspect-ratio:1;display:grid;place-items:center}
+.hero-logo::before{content:"";position:absolute;inset:-10%;border-radius:50%;background:radial-gradient(circle,rgba(214,178,94,.22),rgba(214,178,94,0) 65%);pointer-events:none}
+.hero-logo .wm{position:absolute;left:50%;top:50%;width:165%;max-width:none;transform:translate(-50%,-50%);opacity:.13;pointer-events:none}
+.hero-logo .sym{position:relative;width:100%;height:100%;object-fit:cover;-webkit-mask-image:radial-gradient(closest-side,#000 80%,rgba(0,0,0,0) 100%);mask-image:radial-gradient(closest-side,#000 80%,rgba(0,0,0,0) 100%);filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
+@media (max-width:860px){.hero-logo{width:min(270px,72vw);order:-1}.hero-logo .wm{width:150%}}
+/* Quem somos: foto da caneca sombreada ao fundo */
+#sobre{position:relative;overflow:hidden}
+#sobre::before{content:"";position:absolute;inset:0;background:url(caneca.webp) center/cover no-repeat;opacity:.2;filter:sepia(.35) saturate(.8) brightness(.8);-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 25%,#000 75%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 25%,#000 75%,rgba(0,0,0,0) 100%);pointer-events:none}
+#sobre .wrap{position:relative}
