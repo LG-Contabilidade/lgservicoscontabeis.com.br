@@ -82,5 +82,5 @@
   document.querySelectorAll('[data-abrir-cadastro],a[href="#cadastro"],a[href="index.html#cadastro"]').forEach(function(a){a.addEventListener('click',abrir)});
   d.querySelectorAll('[data-fechar]').forEach(function(b){b.addEventListener('click',function(){d.close()})});
   d.addEventListener('click',function(ev){if(ev.target===d)d.close()});
-  if(location.hash==='#cadastro')abrir();
+  if(location.hash==='#cadastro'&&history.replaceState)history.replaceState(null,'',location.pathname+location.search);
 })();
