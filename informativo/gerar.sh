@@ -12,6 +12,6 @@ python3 -c "import qrcode" 2>/dev/null || pip install -q --break-system-packages
 python3 -c "
 import qrcode
 q=qrcode.QRCode(border=1,box_size=12,error_correction=qrcode.constants.ERROR_CORRECT_M)
-q.add_data('https://lg-contabilidade.github.io/lgservicoscontabeis.com.br/noticias.html');q.make()
+q.add_data('https://lgservicoscontabeis.com.br/noticias.html');q.make()
 q.make_image(fill_color=(18,15,10),back_color=(247,233,180)).save('qr.png')"
 node render-posts.js "$IN" "$OUT"
