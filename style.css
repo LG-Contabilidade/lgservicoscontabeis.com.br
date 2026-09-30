@@ -235,3 +235,4 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .ph-reuniao::before{background-image:url(fundo-reuniao2.webp);background-position:center 60%}
 .ph-escritorio::before{background-image:url(fundo-escritorio.webp)}
 #radar .wrap,#servicos .wrap,.page-head .wrap{position:relative}
+.signup-modal .signup-card{overflow-x:hidden;overflow-y:auto}
