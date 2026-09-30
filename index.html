@@ -45,12 +45,12 @@
 </div>
 </section>
 
-<section id="cadastro" class="signup">
-<div class="wrap">
+<dialog id="cadastro" class="signup-modal" aria-labelledby="cad-titulo">
 <div class="signup-card">
+<button class="modal-x" type="button" data-fechar aria-label="Fechar">&times;</button>
 <div class="signup-text">
 <span class="eyebrow">Radar Tributário por e-mail</span>
-<h2>Quer se manter atualizado sobre a <span class="gold-text">reforma tributária</span>?</h2>
+<h2 id="cad-titulo">Quer se manter atualizado sobre a <span class="gold-text">reforma tributária</span>?</h2>
 <p class="lead">Cadastre-se e receba os prazos, as novas regras do IBS, da CBS e do Simples Nacional e o que muda para a sua empresa, explicados pelo escritório.</p>
 <ul class="signup-points"><li>Resumo semanal direto no seu e-mail</li><li>Alertas de prazos e prorrogações</li><li>Sem propaganda. Cancele quando quiser</li></ul>
 </div>
@@ -64,14 +64,13 @@
 <p class="note" id="radar-aviso" aria-live="polite">Seu cadastro é confirmado pelo escritório antes do primeiro envio.</p>
 </form>
 </div>
-</div>
-</section>
+</dialog>
 
 <section id="radar" class="band">
 <div class="wrap">
 <div class="sec-head"><span class="eyebrow">Radar Tributário</span><h2>Próximos prazos que merecem atenção</h2><p class="lead">Datas conferidas nas fontes oficiais. Se a sua empresa se enquadra em algum deles, fale com a gente.</p></div>
 <div class="prazos" id="radar-prazos" data-limite="4"></div>
-<p style="margin-top:22px"><a class="btn btn-line" href="noticias.html">Ver todas as notícias</a></p>
+<div class="radar-actions"><a class="btn btn-line" href="noticias.html">Ver todas as notícias</a><a class="btn-cta" href="#cadastro" data-abrir-cadastro><span class="cta-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></svg></span><span class="cta-txt"><small>Quer se manter atualizado sobre a reforma tributária?</small><b>Cadastre-se no Radar</b></span></a></div>
 </div>
 </section>
 

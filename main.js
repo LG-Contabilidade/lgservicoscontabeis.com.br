@@ -74,3 +74,13 @@
     }).catch(function(){b.disabled=false;b.textContent='Quero me cadastrar';aviso.textContent='Não foi possível enviar agora. Verifique a sua conexão e tente de novo.'});
   });
 })();
+
+// Janela do cadastro: abre pelo botão do Radar ou pelo link #cadastro
+(function(){
+  var d=document.getElementById('cadastro');if(!d||typeof d.showModal!=='function')return;
+  function abrir(ev){if(ev)ev.preventDefault();if(!d.open)d.showModal();var n=document.getElementById('r-nome');if(n&&!d.querySelector('.enviado'))setTimeout(function(){n.focus()},60)}
+  document.querySelectorAll('[data-abrir-cadastro],a[href="#cadastro"],a[href="index.html#cadastro"]').forEach(function(a){a.addEventListener('click',abrir)});
+  d.querySelectorAll('[data-fechar]').forEach(function(b){b.addEventListener('click',function(){d.close()})});
+  d.addEventListener('click',function(ev){if(ev.target===d)d.close()});
+  if(location.hash==='#cadastro')abrir();
+})();
