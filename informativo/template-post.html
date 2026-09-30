@@ -51,7 +51,7 @@ const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[
 document.getElementById('w').innerHTML=`
 <header><img src="logo.webp" alt=""><div><div class="eyebrow">Radar Tributário</div><h1 class="gold">Informativo<br>do dia</h1><div class="data">${esc(P.data_extenso)}</div></div></header>
 <div class="rule"></div>
-<main><div class="top"><span class="tag">${esc(P.tag)}</span>${P.total>1?`<span class="cont">${P.n} / ${P.total}</span>`:''}</div>
+<main><div class="top"><span class="tag">${esc(P.tag)}</span></div>
 <h2>${esc(P.titulo)}</h2><p class="resumo">${esc(P.resumo)}</p>
 ${P.destaque?`<div class="dest"><b class="gold">${esc(P.destaque.valor)}</b><span>${esc(P.destaque.rotulo)}</span></div>`:''}
 ${P.fonte?`<p class="fonte">Fonte: ${esc(P.fonte)}</p>`:''}</main>
