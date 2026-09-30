@@ -1,0 +1,59 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Cormorant;src:url(cormorant-garamond-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:Cormorant;src:url(cormorant-garamond-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:Jost;src:url(jost-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:Jost;src:url(jost-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:Jost;src:url(jost-latin-600-normal.woff2);font-weight:600}
+:root{--g1:#f7e9b4;--g2:#dcb862;--g3:#9a7224;--txt:#efe7d6;--mut:#b9ad95;--grad:linear-gradient(180deg,#f7e9b4 0%,#dcb862 38%,#9a7224 66%,#e6c97d 88%,#b58d3a 100%)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px}
+body{font-variant-numeric:lining-nums;font-family:Jost,sans-serif;color:var(--txt);position:relative;overflow:hidden;
+background:radial-gradient(70% 32% at 88% 6%,rgba(214,178,94,.24),rgba(214,178,94,0) 70%),radial-gradient(80% 40% at 0% 100%,rgba(214,178,94,.16),rgba(214,178,94,0) 70%),linear-gradient(170deg,#1d1912 0%,#0e0c09 48%,#15110b 100%)}
+.ledger{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(220,184,98,.05) 0 1px,transparent 1px 64px),repeating-linear-gradient(90deg,rgba(220,184,98,.035) 0 1px,transparent 1px 64px);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 30%,#000 70%,transparent 100%)}
+.art{position:absolute;right:-70px;top:700px;width:860px;height:860px;opacity:.11;color:#e3c173}
+.art svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.frame{position:absolute;inset:34px;border:1.5px solid rgba(220,184,98,.35);border-radius:28px}
+.wrap{position:absolute;inset:0;padding:165px 86px 215px;display:flex;flex-direction:column}
+.gold{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+header{display:flex;align-items:center;gap:32px}
+header img{width:180px;height:180px;border-radius:22px;box-shadow:0 18px 40px rgba(0,0,0,.6),0 0 0 1px rgba(220,184,98,.35)}
+.eyebrow{font-size:25px;letter-spacing:.32em;text-transform:uppercase;color:var(--g2);font-weight:500}
+h1{font-family:Cormorant;font-weight:700;font-size:80px;line-height:.98;margin-top:6px}
+.data{font-size:27px;color:var(--mut);margin-top:10px}
+.rule{height:2px;margin:44px 0 0;background:linear-gradient(90deg,rgba(220,184,98,0),var(--g2),rgba(220,184,98,0))}
+main{margin:auto 0;padding:40px 0}
+.top{display:flex;justify-content:space-between;align-items:center}
+.tag{display:inline-block;font-size:24px;letter-spacing:.16em;text-transform:uppercase;color:#1a1408;background:var(--grad);padding:8px 20px;border-radius:999px;font-weight:600}
+.cont{font-size:24px;letter-spacing:.2em;color:var(--mut)}
+h2{font-family:Cormorant;font-weight:700;font-size:84px;line-height:1.02;margin:30px 0 26px;color:var(--g1);text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.resumo{font-size:34px;line-height:1.45;color:var(--txt);text-shadow:0 1px 10px rgba(0,0,0,.7)}
+.dest{margin-top:36px;display:inline-flex;align-items:center;gap:26px;padding:20px 30px;border-radius:20px;border:1px solid rgba(220,184,98,.55);background:rgba(12,10,7,.55)}
+.dest b{font-family:Cormorant;font-weight:700;font-size:70px;line-height:1}
+.dest span{font-size:26px;color:var(--mut);max-width:520px;line-height:1.3}
+.fonte{margin-top:28px;font-size:22px;color:var(--mut)}
+footer{display:grid;grid-template-columns:1fr 180px;gap:30px;align-items:center;padding:28px 32px;border-radius:24px;background:linear-gradient(135deg,rgba(220,184,98,.2),rgba(220,184,98,.06));border:1px solid rgba(220,184,98,.5)}
+footer h3{font-family:Cormorant;font-weight:700;font-size:44px;line-height:1.05}
+footer p{font-size:23px;line-height:1.4;margin-top:8px}
+footer .wa{font-size:30px;font-weight:600;color:var(--g1);margin-top:10px}
+footer img{width:180px;height:180px;border-radius:14px}
+</style></head><body><div class="ledger"></div><div class="art" id="art"></div><div class="frame"></div><div class="wrap" id="w"></div>
+<script>
+const P=__POST__;
+const ART={
+simples:'<svg viewBox="0 0 200 200"><rect x="30" y="20" width="90" height="140" rx="10"/><rect x="42" y="32" width="66" height="28" rx="4"/><circle cx="50" cy="80" r="6"/><circle cx="75" cy="80" r="6"/><circle cx="100" cy="80" r="6"/><circle cx="50" cy="104" r="6"/><circle cx="75" cy="104" r="6"/><circle cx="100" cy="104" r="6"/><circle cx="50" cy="128" r="6"/><circle cx="75" cy="128" r="6"/><rect x="92" y="122" width="16" height="30" rx="5"/><path d="M130 60h50v110l-8-6-8 6-9-6-8 6-9-6-8 6z"/><path d="M142 80h26M142 96h26M142 112h18M142 128h26M142 144h14"/></svg>',
+ibscbs:'<svg viewBox="0 0 200 200"><path d="M20 180h170"/><rect x="34" y="120" width="24" height="60" rx="3"/><rect x="72" y="92" width="24" height="88" rx="3"/><rect x="110" y="64" width="24" height="116" rx="3"/><rect x="148" y="36" width="24" height="144" rx="3"/><path d="M30 100 80 60l34 20 60-58"/><path d="M152 22h22v22"/><circle cx="46" cy="34" r="8"/><path d="M36 64 74 16"/><circle cx="66" cy="50" r="8"/></svg>',
+osc:'<svg viewBox="0 0 200 200"><path d="M100 150s-50-30-50-66a26 26 0 0 1 50-10 26 26 0 0 1 50 10c0 36-50 66-50 66z"/><circle cx="40" cy="150" r="12"/><path d="M18 190c0-14 10-24 22-24s22 10 22 24"/><circle cx="160" cy="150" r="12"/><path d="M138 190c0-14 10-24 22-24s22 10 22 24"/><rect x="128" y="18" width="52" height="66" rx="6"/><path d="M142 14h24v10h-24z"/><path d="M140 40h28M140 54h28M140 68h18"/></svg>',
+dp:'<svg viewBox="0 0 200 200"><rect x="100" y="30" width="84" height="80" rx="8"/><path d="M100 52h84M122 20v20M162 20v20"/><path d="M116 70h12M136 70h12M156 70h12M116 90h12M136 90h12"/><circle cx="60" cy="90" r="22"/><path d="M20 180c0-26 18-44 40-44s40 18 40 44"/><circle cx="130" cy="150" r="14"/><path d="M104 190c0-16 12-28 26-28s26 12 26 28"/></svg>',
+geral:'<svg viewBox="0 0 200 200"><path d="M50 20h80l30 30v130H50z"/><path d="M130 20v30h30"/><path d="M68 70h70M68 90h70M68 110h70M68 130h44"/><circle cx="130" cy="156" r="18"/><path d="M122 172l-6 20 14-8 14 8-6-20"/></svg>'};
+document.getElementById('art').innerHTML=ART[P.tema]||ART.geral;
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+document.getElementById('w').innerHTML=`
+<header><img src="logo.webp" alt=""><div><div class="eyebrow">Radar Tributário</div><h1 class="gold">Informativo<br>do dia</h1><div class="data">${esc(P.data_extenso)}</div></div></header>
+<div class="rule"></div>
+<main><div class="top"><span class="tag">${esc(P.tag)}</span>${P.total>1?`<span class="cont">${P.n} / ${P.total}</span>`:''}</div>
+<h2>${esc(P.titulo)}</h2><p class="resumo">${esc(P.resumo)}</p>
+${P.destaque?`<div class="dest"><b class="gold">${esc(P.destaque.valor)}</b><span>${esc(P.destaque.rotulo)}</span></div>`:''}
+${P.fonte?`<p class="fonte">Fonte: ${esc(P.fonte)}</p>`:''}</main>
+<footer><div><h3 class="gold">Dúvidas? Fale com a gente</h3><p>Notícia completa no site: aponte a câmera para o código ou toque no link da legenda.</p><div class="wa">WhatsApp (21) 97002-1670</div></div><img src="qr.png" alt=""></footer>`;
+</script></body></html>
