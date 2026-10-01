@@ -4,13 +4,36 @@
   if(btn&&nav){btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o?'true':'false')})}
   var y=document.getElementById('ano');if(y)y.textContent=new Date().getFullYear();
 
-  // Radar: prazos e notícias a partir de noticias.json
+  // Radar: prazos e notícias de noticias.json + publicações aprovadas (planilha assinada)
   var ROT={critico:'Prazo / obrigação',regulamentacao:'Regulamentação',informativo:'Informativo'};
+  var PLANILHA='1l5lS56S8rDCjwjwI3XAkOwDksw-lK45Vf66JLofA8_I';
+  var CHAVE_PUB='BJ9eM5UlDfEEXGwCjx2cKvNQTfz15mK2NuCqJGU9qTZ5C8zJFAKkST216LpyM9T54XEdgbekbicEfwgRDjpaT7Q=';
   function br(iso){var p=iso.split('-');return p[2]+'/'+p[1]+'/'+p[0]}
   function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+  function csv(t){var L=[],R=[],v='',q=false;for(var k=0;k<t.length;k++){var ch=t[k];if(q){if(ch=='"'){if(t[k+1]=='"'){v+='"';k++}else q=false}else v+=ch}else if(ch=='"')q=true;else if(ch==','){R.push(v);v=''}else if(ch=='\n'){R.push(v);L.push(R);R=[];v=''}else if(ch!='\r')v+=ch}if(v||R.length){R.push(v);L.push(R)}return L}
+  function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var k=0;k<b.length;k++)u[k]=b.charCodeAt(k);return u}
+  function publicacoes(){
+    if(PLANILHA.indexOf('__')===0||!(window.crypto&&crypto.subtle))return Promise.resolve([]);
+    var url='https://docs.google.com/spreadsheets/d/'+PLANILHA+'/gviz/tq?tqx=out:csv&t='+Date.now();
+    return Promise.all([fetch(url).then(function(r){return r.text()}),crypto.subtle.importKey('raw',b64(CHAVE_PUB),{name:'ECDSA',namedCurve:'P-256'},false,['verify'])]).then(function(x){
+      var linhas=csv(x[0]).slice(1),key=x[1],enc=new TextEncoder();
+      return Promise.all(linhas.map(function(l){var dados=l[1],sig=l[2];if(!dados||!sig)return null;
+        return crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},key,b64(sig.trim()),enc.encode(dados)).then(function(ok){if(!ok)return null;try{return JSON.parse(dados)}catch(e){return null}},function(){return null})}));
+    }).then(function(a){return a.filter(Boolean)}).catch(function(){return []});
+  }
+  function juntar(D,P){
+    var porId={};P.forEach(function(p){if(p.id)porId[p.id]=p});
+    var rem={};Object.keys(porId).forEach(function(id){if(porId[id].tipo==='remover')rem[id]=1});
+    Object.keys(porId).forEach(function(id){var p=porId[id];if(rem[id])return;
+      if(p.tipo==='noticia')D.itens=D.itens.filter(function(i){return i.id!==id}).concat([p]);
+      if(p.tipo==='prazo')D.prazos=D.prazos.filter(function(i){return i.id!==id}).concat([p]);});
+    D.itens=D.itens.filter(function(i){return !rem[i.id]});D.prazos=D.prazos.filter(function(i){return !rem[i.id]});
+    return D;
+  }
   var boxN=document.getElementById('radar-noticias'),boxP=document.getElementById('radar-prazos');
   if(boxN||boxP){
-    fetch('noticias.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(D){
+    Promise.all([fetch('noticias.json',{cache:'no-cache'}).then(function(r){return r.json()}),publicacoes()]).then(function(x){
+      var D=juntar(x[0],x[1]);
       var hoje=new Date();hoje.setHours(0,0,0,0);
       if(boxP){
         var ps=D.prazos.filter(function(p){return new Date(p.data+'T00:00:00')>=hoje}).sort(function(a,b){return a.data<b.data?-1:1});
@@ -34,7 +57,7 @@
           c.appendChild(el('h3',null,i.titulo));c.appendChild(el('p',null,i.resumo));
           var s=el('div','src');
           if(i.artigo){var a0=el('a',null,'Leia a análise do escritório');a0.href=i.artigo;s.appendChild(a0)}
-          (i.fontes||[]).forEach(function(f){var a=el('a',null,'Fonte: '+f.nome);a.href=f.url;a.target='_blank';a.rel='noopener';s.appendChild(a)});
+          (i.fontes||[]).forEach(function(f){if(!/^https:\/\//.test(f.url||''))return;var a=el('a',null,'Fonte: '+f.nome);a.href=f.url;a.target='_blank';a.rel='noopener';s.appendChild(a)});
           c.appendChild(s);boxN.appendChild(c);
         });
       }
