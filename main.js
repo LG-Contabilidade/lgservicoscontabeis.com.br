@@ -64,6 +64,64 @@
     }).catch(function(){if(boxN)boxN.appendChild(el('p','note','Não foi possível carregar as notícias agora. Tente recarregar a página.'))});
   }
 
+  // Artigos publicados pela aprovação por e-mail (planilha assinada): lista em artigos.html e página artigo.html?id=...
+  var listaA=document.getElementById('lista-artigos'),boxA=document.getElementById('artigo-dinamico');
+  function limpar(html){
+    var OK={P:1,H2:1,H3:1,UL:1,OL:1,LI:1,STRONG:1,EM:1,B:1,I:1,A:1,BR:1,TABLE:1,THEAD:1,TBODY:1,TR:1,TH:1,TD:1,DIV:1,SPAN:1,BLOCKQUOTE:1};
+    var doc=new DOMParser().parseFromString('<div>'+html+'</div>','text/html'),raiz=doc.body.firstChild;
+    (function lim(n){Array.prototype.slice.call(n.childNodes).forEach(function(c){
+      if(c.nodeType===3)return;
+      if(c.nodeType!==1||!OK[c.tagName]){if(c.nodeType===1&&!/^(SCRIPT|STYLE|IFRAME|OBJECT|EMBED|FORM)$/.test(c.tagName)){lim(c);while(c.firstChild)n.insertBefore(c.firstChild,c)}n.removeChild(c);return}
+      Array.prototype.slice.call(c.attributes).forEach(function(at){
+        var k=at.name.toLowerCase();
+        if(k==='class'&&/^(box|table-wrap|note)$/.test(at.value))return;
+        if(k==='href'&&c.tagName==='A'&&(/^https:\/\//.test(at.value)||/^[a-z0-9\-]+\.html([#?][\w\-=&#]*)?$/i.test(at.value)))return;
+        c.removeAttribute(at.name)});
+      if(c.tagName==='A'&&/^https:/.test(c.getAttribute('href')||'')){c.target='_blank';c.rel='noopener'}
+      lim(c)})})(raiz);
+    return raiz.innerHTML;
+  }
+  function artigosAssinados(P){
+    var rem={},grupos={};P.forEach(function(p){if(p.tipo==='remover'&&p.id)rem[p.id]=1});
+    P.forEach(function(p){if(p.tipo!=='artigo'||!p.id||rem[p.id])return;(grupos[p.id]=grupos[p.id]||{})[p.parte||1]=p});
+    return Object.keys(grupos).map(function(id){var g=grupos[id],c=g[1];if(!c)return null;var n=c.partes||1;
+      for(var k=1;k<=n;k++)if(!g[k])return null;
+      var html='';for(var j=1;j<=n;j++)html+=g[j].html||'';
+      return {id:id,data:c.data||'',tema:c.tema||'',titulo:c.titulo||'',resumo:c.resumo||'',lead:c.lead||'',html:html}}).filter(Boolean);
+  }
+  var homeA=document.getElementById('home-artigos');
+  if(homeA){
+    Promise.all([fetch('artigos.json',{cache:'no-cache'}).then(function(r){return r.json()}).catch(function(){return []}),publicacoes()]).then(function(x){
+      var est=x[0].map(function(a){return {href:a.url,data:a.data,tema:a.tema,titulo:a.titulo,resumo:a.resumo}});
+      var ass=artigosAssinados(x[1]).map(function(a){return {href:'artigo.html?id='+encodeURIComponent(a.id),data:a.data,tema:a.tema,titulo:a.titulo,resumo:a.resumo}});
+      var lim=parseInt(homeA.dataset.limite||'4',10);
+      ass.concat(est).sort(function(a,b){return a.data<b.data?1:-1}).slice(0,lim).forEach(function(a){
+        var c=el('a','card');c.href=a.href;c.style.textDecoration='none';c.style.color='inherit';
+        c.appendChild(el('span','eyebrow',(a.tema?a.tema+' · ':'')+(a.data?br(a.data):'')));c.appendChild(el('h3',null,a.titulo));c.appendChild(el('p',null,a.resumo));
+        var l=el('span',null,'Ler artigo');l.style.color='var(--gold-2)';c.appendChild(l);homeA.appendChild(c)});
+      if(!homeA.children.length)homeA.appendChild(el('p','note','Os artigos do escritório aparecem aqui.'));
+    });
+  }
+  if(listaA||boxA){
+    publicacoes().then(function(P){
+      var A=artigosAssinados(P);
+      if(listaA){A.sort(function(a,b){return a.data<b.data?1:-1}).forEach(function(a){
+        var c=el('a','card');c.href='artigo.html?id='+encodeURIComponent(a.id);c.style.textDecoration='none';c.style.color='inherit';
+        c.appendChild(el('span','eyebrow',(a.tema?a.tema+' · ':'')+(a.data?br(a.data):'')));c.appendChild(el('h3',null,a.titulo));c.appendChild(el('p',null,a.resumo));
+        var l=el('span',null,'Ler artigo');l.style.color='var(--gold-2)';c.appendChild(l);listaA.insertBefore(c,listaA.firstChild)})}
+      if(boxA){
+        var id=new URLSearchParams(location.search).get('id'),a=A.filter(function(x){return x.id===id})[0];
+        if(!a){boxA.innerHTML='';boxA.appendChild(el('p',null,'Artigo não encontrado. Veja a lista completa em '));var v=el('a',null,'Artigos');v.href='artigos.html';boxA.firstChild.appendChild(v);return}
+        document.title=a.titulo+' | LG Serviços Contábeis';
+        var m=document.querySelector('meta[name="description"]');if(m)m.setAttribute('content',a.resumo);
+        document.getElementById('artigo-eyebrow').textContent=(a.tema?a.tema+' · ':'')+(a.data?br(a.data):'');
+        document.getElementById('artigo-titulo').textContent=a.titulo;
+        document.getElementById('artigo-lead').textContent=a.lead||a.resumo;
+        boxA.innerHTML=limpar(a.html);
+      }
+    });
+  }
+
   // Formulário de contato: monta a mensagem e abre o WhatsApp (nada é armazenado no site)
   var f=document.getElementById('form-contato');
   if(f){f.addEventListener('submit',function(ev){
