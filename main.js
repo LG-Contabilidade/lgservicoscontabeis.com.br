@@ -118,6 +118,10 @@
         document.getElementById('artigo-titulo').textContent=a.titulo;
         document.getElementById('artigo-lead').textContent=a.lead||a.resumo;
         boxA.innerHTML=limpar(a.html);
+        // Assinatura do autor: linha abaixo do título e bloco no fim do artigo (antes das fontes)
+        var by=document.getElementById('artigo-byline'),ass=document.getElementById('artigo-assinatura');
+        if(by)by.hidden=false;
+        if(ass){var nts=boxA.querySelectorAll('p.note'),ult=nts[nts.length-1];if(ult&&ult.parentNode===boxA)boxA.insertBefore(ass,ult);else boxA.appendChild(ass);ass.hidden=false}
       }
     });
   }
