@@ -144,7 +144,10 @@
       document.getElementById('noticia-eyebrow').textContent='Radar Tributário'+(n.tema?' · '+n.tema:'');
       document.getElementById('noticia-titulo').textContent=n.titulo;
       var fs=(n.fontes||[]).filter(function(f){return /^https:\/\//.test(f.url||'')});
-      var pd=document.getElementById('noticia-data');pd.textContent='Publicado em '+br(n.data)+(fs[0]?' · '+fs[0].nome:'');pd.hidden=false;
+      // Assinatura do escritório e data de publicação na fonte ("pela Receita Federal", "pelo Planalto"...)
+      var nb=document.getElementById('noticia-byline');if(nb)nb.hidden=false;
+      var pp=(n.publicado_por||'').trim(),pd=document.getElementById('noticia-data');
+      pd.textContent=/^pel[oa]s? \S/i.test(pp)?'Publicado '+pp+' em '+br(n.data):'Publicado na fonte oficial em '+br(n.data);pd.hidden=false;
       if(n.texto)boxNo.innerHTML=limpar(n.texto);else boxNo.appendChild(el('p',null,n.resumo));
       if(n.artigo){var bx=el('div','box'),pa=el('p',null,'Quer a análise completa? ');var aa=el('a',null,'Leia o artigo do escritório');aa.href=n.artigo;pa.appendChild(aa);bx.appendChild(pa);boxNo.appendChild(bx)}
       if(fs.length){var pf=el('p','fonte-oficial');pf.appendChild(el('strong',null,fs.length>1?'Fontes oficiais: ':'Fonte oficial: '));
