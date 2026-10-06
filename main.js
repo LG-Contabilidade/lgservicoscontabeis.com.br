@@ -12,17 +12,19 @@
   function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
   function csv(t){var L=[],R=[],v='',q=false;for(var k=0;k<t.length;k++){var ch=t[k];if(q){if(ch=='"'){if(t[k+1]=='"'){v+='"';k++}else q=false}else v+=ch}else if(ch=='"')q=true;else if(ch==','){R.push(v);v=''}else if(ch=='\n'){R.push(v);L.push(R);R=[];v=''}else if(ch!='\r')v+=ch}if(v||R.length){R.push(v);L.push(R)}return L}
   function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var k=0;k<b.length;k++)u[k]=b.charCodeAt(k);return u}
+  // Data em que a linha entrou na planilha (= entrada no site): "06/10/2026 10:05:18" -> "2026-10-06"
+  function dataPlanilha(t){t=t||'';var m=t.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);if(m)return m[3]+'-'+('0'+m[2]).slice(-2)+'-'+('0'+m[1]).slice(-2);m=t.match(/(\d{4})-(\d{2})-(\d{2})/);return m?m[0]:''}
   function publicacoes(){
     if(PLANILHA.indexOf('__')===0||!(window.crypto&&crypto.subtle))return Promise.resolve([]);
     var url='https://docs.google.com/spreadsheets/d/'+PLANILHA+'/gviz/tq?tqx=out:csv&t='+Date.now();
     return Promise.all([fetch(url).then(function(r){return r.text()}),crypto.subtle.importKey('raw',b64(CHAVE_PUB),{name:'ECDSA',namedCurve:'P-256'},false,['verify'])]).then(function(x){
       var linhas=csv(x[0]).slice(1),key=x[1],enc=new TextEncoder();
-      return Promise.all(linhas.map(function(l){var dados=l[1],sig=l[2];if(!dados||!sig)return null;
-        return crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},key,b64(sig.trim()),enc.encode(dados)).then(function(ok){if(!ok)return null;try{return JSON.parse(dados)}catch(e){return null}},function(){return null})}));
+      return Promise.all(linhas.map(function(l,n){var dados=l[1],sig=l[2];if(!dados||!sig)return null;
+        return crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},key,b64(sig.trim()),enc.encode(dados)).then(function(ok){if(!ok)return null;try{var o=JSON.parse(dados);o._pub=dataPlanilha(l[0]);o._ord=n+1;return o}catch(e){return null}},function(){return null})}));
     }).then(function(a){return a.filter(Boolean)}).catch(function(){return []});
   }
   function juntar(D,P){
-    var porId={};P.forEach(function(p){if(p.id)porId[p.id]=p});
+    var porId={},prim={};P.forEach(function(p){if(!p.id)return;if(!prim[p.id])prim[p.id]=p._pub;porId[p.id]=p;if(prim[p.id])p._pub=prim[p.id]});
     var rem={};Object.keys(porId).forEach(function(id){if(porId[id].tipo==='remover')rem[id]=1});
     Object.keys(porId).forEach(function(id){var p=porId[id];if(rem[id])return;
       if(p.tipo==='noticia')D.itens=D.itens.filter(function(i){return i.id!==id}).concat([p]);
@@ -30,6 +32,9 @@
     D.itens=D.itens.filter(function(i){return !rem[i.id]});D.prazos=D.prazos.filter(function(i){return !rem[i.id]});
     return D;
   }
+  // Data de entrada no site (notícias fixas do noticias.json usam a própria data) e ordem da lista
+  function noSite(i){return i._pub||i.data}
+  function ordemSite(a,b){var x=noSite(a),y=noSite(b);if(x!==y)return x<y?1:-1;return (a._ord||0)-(b._ord||0)}
   var boxN=document.getElementById('radar-noticias'),boxP=document.getElementById('radar-prazos');
   if(boxN||boxP){
     Promise.all([fetch('noticias.json',{cache:'no-cache'}).then(function(r){return r.json()}),publicacoes()]).then(function(x){
@@ -50,14 +55,15 @@
       }
       if(boxN){
         var lim2=parseInt(boxN.dataset.limite||'99',10);
-        D.itens.slice().sort(function(a,b){return a.data<b.data?1:-1}).slice(0,lim2).forEach(function(i){
+        D.itens.slice().sort(ordemSite).slice(0,lim2).forEach(function(i){
           var c=el('article','news');
           var m=el('div','meta');m.appendChild(el('span','pill '+i.impacto,ROT[i.impacto]||i.impacto));
-          if(i.tema)m.appendChild(el('span',null,i.tema));m.appendChild(el('span',null,br(i.data)));c.appendChild(m);
-          c.appendChild(el('h3',null,i.titulo));c.appendChild(el('p',null,i.resumo));
+          if(i.tema)m.appendChild(el('span',null,i.tema));m.appendChild(el('span',null,br(noSite(i))));c.appendChild(m);
+          var h=el('h3');if(i.id){var hl=el('a',null,i.titulo);hl.href='noticia.html?id='+encodeURIComponent(i.id);h.appendChild(hl)}else h.textContent=i.titulo;
+          c.appendChild(h);c.appendChild(el('p',null,i.resumo));
           var s=el('div','src');
+          if(i.id){var a1=el('a',null,'Ler a notícia');a1.href='noticia.html?id='+encodeURIComponent(i.id);s.appendChild(a1)}
           if(i.artigo){var a0=el('a',null,'Leia a análise do escritório');a0.href=i.artigo;s.appendChild(a0)}
-          (i.fontes||[]).forEach(function(f){if(!/^https:\/\//.test(f.url||''))return;var a=el('a',null,'Fonte: '+f.nome);a.href=f.url;a.target='_blank';a.rel='noopener';s.appendChild(a)});
           c.appendChild(s);boxN.appendChild(c);
         });
       }
@@ -124,6 +130,26 @@
         if(ass){var nts=boxA.querySelectorAll('p.note'),ult=nts[nts.length-1];if(ult&&ult.parentNode===boxA)boxA.insertBefore(ass,ult);else boxA.appendChild(ass);ass.hidden=false}
       }
     });
+  }
+
+  // Página de uma notícia do Radar: título, data de publicação na fonte, texto e, no fim, o link oficial
+  var boxNo=document.getElementById('noticia-corpo');
+  if(boxNo){
+    Promise.all([fetch('noticias.json',{cache:'no-cache'}).then(function(r){return r.json()}),publicacoes()]).then(function(x){
+      var D=juntar(x[0],x[1]),id=new URLSearchParams(location.search).get('id'),n=D.itens.filter(function(i){return i.id===id})[0];
+      boxNo.innerHTML='';
+      if(!n){document.getElementById('noticia-titulo').textContent='Notícia não encontrada';var p0=el('p',null,'Veja todas as notícias no ');var v=el('a',null,'Radar Tributário');v.href='noticias.html';p0.appendChild(v);boxNo.appendChild(p0);return}
+      document.title=n.titulo+' | Radar Tributário | LG Serviços Contábeis';
+      var md=document.querySelector('meta[name="description"]');if(md)md.setAttribute('content',n.resumo);
+      document.getElementById('noticia-eyebrow').textContent='Radar Tributário'+(n.tema?' · '+n.tema:'');
+      document.getElementById('noticia-titulo').textContent=n.titulo;
+      var fs=(n.fontes||[]).filter(function(f){return /^https:\/\//.test(f.url||'')});
+      var pd=document.getElementById('noticia-data');pd.textContent='Publicado em '+br(n.data)+(fs[0]?' · '+fs[0].nome:'');pd.hidden=false;
+      if(n.texto)boxNo.innerHTML=limpar(n.texto);else boxNo.appendChild(el('p',null,n.resumo));
+      if(n.artigo){var bx=el('div','box'),pa=el('p',null,'Quer a análise completa? ');var aa=el('a',null,'Leia o artigo do escritório');aa.href=n.artigo;pa.appendChild(aa);bx.appendChild(pa);boxNo.appendChild(bx)}
+      if(fs.length){var pf=el('p','fonte-oficial');pf.appendChild(el('strong',null,fs.length>1?'Fontes oficiais: ':'Fonte oficial: '));
+        fs.forEach(function(f,k){if(k)pf.appendChild(document.createTextNode(' · '));var a=el('a',null,f.nome);a.href=f.url;a.target='_blank';a.rel='noopener';pf.appendChild(a)});boxNo.appendChild(pf)}
+    }).catch(function(){boxNo.innerHTML='';boxNo.appendChild(el('p','note','Não foi possível carregar a notícia agora. Tente recarregar a página.'))});
   }
 
   // Formulário de contato: monta a mensagem e abre o WhatsApp (nada é armazenado no site)

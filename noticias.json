@@ -9,6 +9,7 @@
   ],
   "itens": [
     {
+      "id":"2026-09-29-simples-prazo-opcao-prorrogado",
       "data":"2026-09-29","impacto":"critico","tema":"Simples Nacional",
       "titulo":"Prazo para entrar no Simples Nacional em 2027 foi prorrogado para 15 de outubro",
       "resumo":"A Resolução CGSN nº 194/2026, publicada em edição extra do Diário Oficial de 28/09, estendeu a opção pelo Simples para 15/10/2026. Empresas já optantes que queiram recolher IBS e CBS fora do DAS, no regime regular, têm até 30/10/2026. Pendências que impeçam a entrada no regime também podem ser regularizadas até 30/10.",
@@ -16,18 +17,21 @@
       "artigo":"artigo-simples-2027.html"
     },
     {
+      "id":"2026-09-29-cooperativas-opcao-regime-especifico",
       "data":"2026-09-29","impacto":"critico","tema":"Cooperativas",
       "titulo":"Cooperativas têm até 31 de outubro para optar pelo regime específico do IBS e da CBS",
       "resumo":"A Receita Federal e o Comitê Gestor do IBS publicaram orientação conjunta explicando como as sociedades cooperativas fazem a opção pelo regime específico dos novos tributos.",
       "fontes":[{"nome":"Comitê Gestor do IBS","url":"https://www.cgibs.gov.br/inicial"}]
     },
     {
+      "id":"2026-09-14-cbs-apis-apuracao",
       "data":"2026-09-14","impacto":"regulamentacao","tema":"CBS",
       "titulo":"Receita publica nova documentação técnica das APIs de apuração da CBS",
       "resumo":"A nova versão permite consultas incrementais, com menos tempo de processamento. Interessa principalmente a empresas que integram o sistema de gestão (ERP) à plataforma da reforma tributária.",
       "fontes":[{"nome":"Receita Federal – Reforma Tributária do Consumo","url":"https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/reforma-tributaria-do-consumo"}]
     },
     {
+      "id":"2026-05-19-portal-cbs-apuracao-assistida",
       "data":"2026-05-19","impacto":"informativo","tema":"Reforma Tributária",
       "titulo":"Portal Nacional de Tributação sobre o Consumo ganha apuração assistida da CBS",
       "resumo":"A nova versão do portal da Receita trouxe simulação de pagamento, gestão de créditos e integração por API. Em 2026, ano de teste, as funções servem para adaptação das empresas antes da cobrança efetiva em 2027.",
