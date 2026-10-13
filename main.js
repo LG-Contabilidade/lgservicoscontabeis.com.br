@@ -34,6 +34,20 @@
   }
   // Data de entrada no site (notícias fixas do noticias.json usam a própria data) e ordem da lista
   function noSite(i){return i._pub||i.data}
+  // Editorias do Radar (como num jornal). Notícias antigas, sem o campo "editoria", são classificadas pelo tema.
+  var EDITORIAS=['Tributário','Reforma Tributária','Simples e MEI','Trabalhista e DP','Previdenciário','Terceiro Setor','Contabilidade','Gestão e Empresas'];
+  function editoriaDe(i){
+    if(EDITORIAS.indexOf(i.editoria)>=0)return i.editoria;
+    var t=((i.tema||'')+' '+(i.titulo||'')).toLowerCase();
+    if(/terceiro setor|osc|associa|funda[cç][aã]o|entidades? (religios|imune|benefic)/.test(t))return 'Terceiro Setor';
+    if(/simples|mei\b|microempreendedor/.test(t))return 'Simples e MEI';
+    if(/reforma|ibs|cbs|imposto seletivo|split|nfs-?e|cgibs/.test(t))return 'Reforma Tributária';
+    if(/departamento pessoal|trabalh|fgts|esocial|sal[aá]rio|empregad/.test(t))return 'Trabalhista e DP';
+    if(/previd|inss|aposentad/.test(t))return 'Previdenciário';
+    if(/contabil|cfc|crc|nbc|cpc/.test(t))return 'Contabilidade';
+    if(/gest[aã]o|empreend|neg[oó]cio/.test(t))return 'Gestão e Empresas';
+    return 'Tributário';
+  }
   function ordemSite(a,b){var x=noSite(a),y=noSite(b);if(x!==y)return x<y?1:-1;return (a._ord||0)-(b._ord||0)}
   var boxN=document.getElementById('radar-noticias'),boxP=document.getElementById('radar-prazos');
   if(boxN||boxP){
@@ -54,18 +68,39 @@
         if(!ps.length)boxP.appendChild(el('p','note','Nenhum prazo próximo registrado.'));
       }
       if(boxN){
-        var lim2=parseInt(boxN.dataset.limite||'99',10);
-        D.itens.slice().sort(ordemSite).slice(0,lim2).forEach(function(i){
+        var lim2=parseInt(boxN.dataset.limite||'99',10),todas=D.itens.slice().sort(ordemSite),pag=20,filtro=new URLSearchParams(location.search).get('editoria')||'';
+        if(EDITORIAS.indexOf(filtro)<0)filtro='';
+        var chips=document.getElementById('radar-editorias'),mais=el('button','btn btn-line mais-noticias','Ver mais notícias');mais.type='button';
+        function cartao(i){
           var c=el('article','news');
           var m=el('div','meta');m.appendChild(el('span','pill '+i.impacto,ROT[i.impacto]||i.impacto));
-          if(i.tema)m.appendChild(el('span',null,i.tema));m.appendChild(el('span',null,br(noSite(i))));c.appendChild(m);
+          var ed=editoriaDe(i);m.appendChild(el('span','editoria',ed));
+          if(i.tema&&i.tema!==ed)m.appendChild(el('span',null,i.tema));
+          m.appendChild(el('span',null,br(noSite(i))));c.appendChild(m);
           var h=el('h3');if(i.id){var hl=el('a',null,i.titulo);hl.href='noticia.html?id='+encodeURIComponent(i.id);h.appendChild(hl)}else h.textContent=i.titulo;
           c.appendChild(h);c.appendChild(el('p',null,i.resumo));
           var s=el('div','src');
           if(i.id){var a1=el('a',null,'Ler a notícia');a1.href='noticia.html?id='+encodeURIComponent(i.id);s.appendChild(a1)}
           if(i.artigo){var a0=el('a',null,'Leia a análise do escritório');a0.href=i.artigo;s.appendChild(a0)}
-          c.appendChild(s);boxN.appendChild(c);
-        });
+          c.appendChild(s);return c;
+        }
+        function desenhar(){
+          var lista=todas.filter(function(i){return !filtro||editoriaDe(i)===filtro}).slice(0,lim2);
+          boxN.innerHTML='';lista.slice(0,pag).forEach(function(i){boxN.appendChild(cartao(i))});
+          if(!lista.length)boxN.appendChild(el('p','note','Ainda não há notícias nesta editoria.'));
+          if(mais.parentNode)mais.parentNode.removeChild(mais);
+          if(lista.length>pag)boxN.parentNode.insertBefore(mais,boxN.nextSibling);
+          if(chips)Array.prototype.forEach.call(chips.children,function(b){b.setAttribute('aria-pressed',b.dataset.ed===filtro?'true':'false')});
+        }
+        mais.addEventListener('click',function(){pag+=20;desenhar()});
+        if(chips){
+          var cont={};todas.forEach(function(i){var e=editoriaDe(i);cont[e]=(cont[e]||0)+1});
+          [''].concat(EDITORIAS).forEach(function(e){if(e&&!cont[e])return;
+            var b=el('button','chip',(e||'Todas')+' ('+(e?cont[e]:todas.length)+')');b.type='button';b.dataset.ed=e;
+            b.addEventListener('click',function(){filtro=e;pag=20;var u=new URL(location.href);if(e)u.searchParams.set('editoria',e);else u.searchParams.delete('editoria');history.replaceState(null,'',u);desenhar()});
+            chips.appendChild(b)});
+        }
+        desenhar();
       }
     }).catch(function(){if(boxN)boxN.appendChild(el('p','note','Não foi possível carregar as notícias agora. Tente recarregar a página.'))});
   }
@@ -141,13 +176,13 @@
       if(!n){document.getElementById('noticia-titulo').textContent='Notícia não encontrada';var p0=el('p',null,'Veja todas as notícias no ');var v=el('a',null,'Radar Tributário');v.href='noticias.html';p0.appendChild(v);boxNo.appendChild(p0);return}
       document.title=n.titulo+' | Radar Tributário | LG Serviços Contábeis';
       var md=document.querySelector('meta[name="description"]');if(md)md.setAttribute('content',n.resumo);
-      document.getElementById('noticia-eyebrow').textContent='Radar Tributário'+(n.tema?' · '+n.tema:'');
+      document.getElementById('noticia-eyebrow').textContent='Radar Tributário · '+editoriaDe(n);
       document.getElementById('noticia-titulo').textContent=n.titulo;
       var fs=(n.fontes||[]).filter(function(f){return /^https:\/\//.test(f.url||'')});
       // Assinatura do escritório e data de publicação na fonte ("pela Receita Federal", "pelo Planalto"...)
       var nb=document.getElementById('noticia-byline');if(nb)nb.hidden=false;
       var pp=(n.publicado_por||'').trim(),pd=document.getElementById('noticia-data');
-      pd.textContent=/^pel[oa]s? \S/i.test(pp)?'Publicado '+pp+' em '+br(n.data):'Publicado na fonte oficial em '+br(n.data);pd.hidden=false;
+      pd.textContent=n.proprio?'Publicado em '+br(n.data):/^pel[oa]s? \S/i.test(pp)?'Publicado '+pp+' em '+br(n.data):'Publicado na fonte oficial em '+br(n.data);pd.hidden=false;
       if(n.texto)boxNo.innerHTML=limpar(n.texto);else boxNo.appendChild(el('p',null,n.resumo));
       if(n.artigo){var bx=el('div','box'),pa=el('p',null,'Quer a análise completa? ');var aa=el('a',null,'Leia o artigo do escritório');aa.href=n.artigo;pa.appendChild(aa);bx.appendChild(pa);boxNo.appendChild(bx)}
       if(fs.length){var pf=el('p','fonte-oficial');pf.appendChild(el('strong',null,fs.length>1?'Fontes oficiais: ':'Fonte oficial: '));

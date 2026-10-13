@@ -247,3 +247,12 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .pub-data{margin-top:14px;font-size:14.5px;color:var(--muted);letter-spacing:.02em}
 .prose .fonte-oficial{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:15px}
 .byline+.pub-data{margin-top:4px}
+
+/* Editorias do Radar (filtro) e paginação */
+.editorias{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{font:inherit;font-size:13.5px;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip:hover{color:var(--gold-soft);border-color:var(--gold-3)}
+.chip[aria-pressed="true"]{color:var(--ink);background:var(--gold-grad);border-color:transparent;font-weight:500}
+.news .meta .editoria{color:var(--gold);letter-spacing:.04em}
+.mais-noticias{margin-top:18px}
+@media (max-width:640px){.editorias{flex-wrap:nowrap;overflow-x:auto;margin-inline:-16px;padding:0 16px 6px;scrollbar-width:none}.editorias::-webkit-scrollbar{display:none}.chip{flex:none}}
