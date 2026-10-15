@@ -215,12 +215,34 @@
     if(!nome||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)||!perfil){aviso.textContent='Preencha nome, um e-mail válido e selecione o seu perfil.';return}
     if(!f.lgpd.checked){aviso.textContent='Para receber as atualizações, marque a autorização de uso dos dados.';return}
     var d=new URLSearchParams();
-    d.append('entry.1675006329',nome);d.append('entry.2044017432',email);d.append('entry.78537103',f.whats.value.trim());
+    d.append('entry.1675006329',nome);d.append('entry.2044017432',email);
     d.append('entry.1015147339',perfil);d.append('entry.475540661',CONSENT);
     var b=f.querySelector('button');b.disabled=true;b.textContent='Enviando...';
     fetch(URL,{method:'POST',mode:'no-cors',body:d}).then(function(){
-      f.classList.add('enviado');aviso.textContent='Cadastro recebido, '+nome.split(' ')[0]+'! Assim que o escritório confirmar, você passa a receber o Radar Tributário no seu e-mail.';
+      f.classList.add('enviado');aviso.textContent='Cadastro recebido, '+nome.split(' ')[0]+'! Nos próximos minutos você recebe um e-mail para confirmar a inscrição. Se não encontrar, confira a caixa de spam ou promoções.';
     }).catch(function(){b.disabled=false;b.textContent='Quero me cadastrar';aviso.textContent='Não foi possível enviar agora. Verifique a sua conexão e tente de novo.'});
+  });
+})();
+
+// Página inscricao.html: confirma ou cancela a inscrição pelo link do e-mail (só com clique no botão)
+(function(){
+  var box=document.getElementById('inscricao-box');if(!box)return;
+  var URL_WEB='https://script.google.com/macros/s/AKfycbwqAuBccEqMOOydaS06M9xVGK0mik076iu3MlYETLpGc2cDuNFDL9aBLnnVc31Z3Rdu9g/exec';
+  var q=new URLSearchParams(location.search),a=q.get('a'),t=(q.get('t')||'').replace(/[^a-f0-9]/g,'');
+  var tit=document.getElementById('insc-titulo'),txt=document.getElementById('insc-texto'),btn=document.getElementById('insc-botao'),msg=document.getElementById('insc-msg'),acao=document.getElementById('insc-acao');
+  if(history.replaceState&&location.search)history.replaceState(null,'',location.pathname);
+  if((a!=='confirmar'&&a!=='cancelar')||t.length!==32)return;
+  if(a==='confirmar'){tit.textContent='Confirme sua inscrição';txt.textContent='Toque no botão para confirmar que deseja receber o Radar Tributário LG por e-mail: no máximo um e-mail por dia útil, só quando houver novidade publicada no site.';btn.textContent='Confirmar minha inscrição'}
+  else{tit.textContent='Cancelar inscrição';txt.textContent='Toque no botão para deixar de receber o Radar Tributário LG por e-mail. O cancelamento vale na hora.';btn.textContent='Cancelar minha inscrição'}
+  acao.style.display='';
+  btn.addEventListener('click',function(){
+    btn.disabled=true;btn.textContent='Aguarde...';
+    fetch(URL_WEB+'?nl='+a+'&t='+t).then(function(r){return r.json()}).then(function(r){
+      acao.style.display='none';msg.textContent='';
+      if(r.ok&&r.status==='ativo'){tit.textContent='Inscrição confirmada';txt.textContent='Pronto! Você passa a receber o Radar Tributário LG no seu e-mail sempre que houver novidade no site. Para cancelar, use o link que vem em todos os e-mails.'}
+      else if(r.ok&&r.status==='cancelado'){tit.textContent='Inscrição cancelada';txt.textContent='Você não vai mais receber o Radar Tributário LG por e-mail. Se mudar de ideia, é só se cadastrar de novo na página do Radar.'}
+      else{tit.textContent='Não foi possível concluir';txt.textContent=r.mensagem||'Tente de novo mais tarde.'}
+    }).catch(function(){btn.disabled=false;btn.textContent=a==='confirmar'?'Confirmar minha inscrição':'Cancelar minha inscrição';msg.textContent='Não foi possível falar com o servidor agora. Verifique a sua conexão e tente de novo.'});
   });
 })();
 
