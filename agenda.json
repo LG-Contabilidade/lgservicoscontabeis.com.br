@@ -1,0 +1,464 @@
+{
+ "meses": [
+  {
+   "mes": "2026-10",
+   "atualizado": "2026-10-15",
+   "fontes": [
+    {
+     "nome": "Receita Federal – Agenda Tributária de outubro/2026",
+     "url": "https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/2026/Outubro"
+    }
+   ],
+   "dias": [
+    {
+     "data": "2026-10-05",
+     "itens": [
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – rendimentos de capital",
+       "d": "Renda fixa, fundos, swap, day-trade, bolsa, juros sobre capital próprio, FII/Fiagro e demais rendimentos de capital",
+       "c": "8053, 3426, 6800, 6813, 5273, 8468, 5557, 5706, 5232, 0924, 3699, 5029, 5035, 1605",
+       "per": "3º decêndio de setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – residentes no exterior",
+       "d": "Aplicações financeiras e juros sobre capital próprio",
+       "c": "5286, 9453",
+       "per": "3º decêndio de setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – outros rendimentos",
+       "d": "Prêmios de concursos, sorteios e bingos; multas e vantagens",
+       "c": "0916, 8673, 9385",
+       "per": "3º decêndio de setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IOF",
+       "d": "Crédito (PJ e PF), câmbio, aplicações financeiras, factoring, seguros e ouro",
+       "c": "1150, 7893, 4290, 5220, 6854, 6895, 3467, 4028",
+       "per": "3º decêndio de setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "CPSS – servidor público federal",
+       "d": "Contribuição do servidor ativo, inativo e pensionista e contribuição patronal (órgãos federais)",
+       "c": "1661, 1700, 1717, 1769, 1814, 1723, 1730, 1752",
+       "per": "3º decêndio de setembro/2026",
+       "esfera": "federal"
+      }
+     ],
+     "fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/2026/Outubro/dia-05-10-2026"
+    },
+    {
+     "data": "2026-10-09",
+     "itens": [
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – remessas específicas",
+       "d": "Juros de empréstimos externos pagos a instituição autorizada a operar em câmbio; transporte rodoviário internacional de carga por autônomo residente no Paraguai",
+       "c": "5299, 0610",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IPI – cigarros",
+       "d": "Cigarros que contenham tabaco",
+       "c": "1020",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "SisObraPref",
+       "d": "Municípios: envio da relação de alvarás de construção e habite-se concedidos",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      }
+     ],
+     "fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/2026/Outubro/dia-09-10-2026"
+    },
+    {
+     "data": "2026-10-15",
+     "itens": [
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – rendimentos de capital",
+       "d": "Renda fixa, fundos, swap, day-trade, bolsa, juros sobre capital próprio, FII/Fiagro e demais rendimentos de capital",
+       "c": "8053, 3426, 6800, 6813, 5273, 8468, 5557, 5706, 5232, 0924, 3699, 5029, 5035, 1605",
+       "per": "1º decêndio de outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – residentes no exterior",
+       "d": "Aplicações financeiras e juros sobre capital próprio",
+       "c": "5286, 9453",
+       "per": "1º decêndio de outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – outros rendimentos",
+       "d": "Prêmios de concursos, sorteios e bingos; multas e vantagens",
+       "c": "0916, 8673, 9385",
+       "per": "1º decêndio de outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IOF",
+       "d": "Crédito (PJ e PF), câmbio, aplicações financeiras, factoring, seguros e ouro",
+       "c": "1150, 7893, 4290, 5220, 6854, 6895, 3467, 4028",
+       "per": "1º decêndio de outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "CPSS – servidor público federal",
+       "d": "Contribuição do servidor ativo, inativo e pensionista e contribuição patronal (órgãos federais)",
+       "c": "1661, 1700, 1717, 1769, 1814, 1723, 1730, 1752",
+       "per": "1º decêndio de outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "PIS/Pasep e Cofins – retenção na compra de autopeças",
+       "d": "Retenção pelas fabricantes de veículos e máquinas",
+       "c": "3770, 3746",
+       "per": "2ª quinzena de setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "Cide",
+       "d": "Remessas ao exterior e comercialização de combustíveis",
+       "c": "8741, 9331",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "Contribuição previdenciária (GPS) – mensal",
+       "d": "Contribuinte individual, facultativo, segurado especial e complementação do MEI",
+       "c": "1007, 1120, 1163, 1406, 1473, 1503, 1830, 1910, 1929, 1945",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "Contribuição previdenciária (GPS) – trimestral",
+       "d": "Contribuinte individual, facultativo e segurado especial com recolhimento trimestral",
+       "c": "1104, 1147, 1180, 1457, 1490, 1554, 1848, 1937, 1953",
+       "per": "3º trimestre de 2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "EFD-Contribuições",
+       "d": "Escrituração do PIS/Pasep, da Cofins e da contribuição previdenciária sobre a receita",
+       "per": "agosto/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "EFD-Reinf",
+       "d": "Retenções e informações fiscais (série R-2000 e R-4000)",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "Opção pelo Simples Nacional",
+       "d": "Último dia para ME e EPP pedirem a opção pelo Simples para 2027",
+       "per": "2027",
+       "esfera": "federal"
+      }
+     ],
+     "fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/2026/Outubro/dia-15-10-2026"
+    },
+    {
+     "data": "2026-10-20",
+     "itens": [
+      {
+       "tipo": "pagamento",
+       "t": "Simples Nacional (DAS)",
+       "d": "Microempresas e empresas de pequeno porte optantes",
+       "c": "—",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "Simples Doméstico (DAE)",
+       "d": "Empregador doméstico",
+       "c": "—",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – trabalho e serviços",
+       "d": "Salários, trabalho sem vínculo, aposentadorias, PLR, serviços prestados por PJ, aluguéis e royalties, cooperativas de trabalho, factoring, decisões judiciais, previdência complementar, lucros e dividendos e demais rendimentos",
+       "c": "0561, 0588, 3533, 3562, 1708, 3208, 3280, 5944, 5204, 5936, 1889, 5928, 1895, 8045, 1841, 3277, 3223, 3556, 3579, 3540, 5565, 6891, 6904, 0039",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "CSRF – retenções na fonte",
+       "d": "PIS/Pasep, Cofins e CSLL retidos em pagamentos de PJ a PJ; retenções por órgãos públicos (operações intraorçamentárias)",
+       "c": "5952, 5979, 5960, 5987, 0067, 0070, 0082, 0095, 0110, 0122, 0123",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "Contribuições previdenciárias (DCTFWeb)",
+       "d": "Descontadas de empregados e contribuintes individuais; contribuição da empresa; contribuição sobre a receita bruta (CPRB)",
+       "c": "1082, 1099, 1138, 2985, 2991",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "PIS/Pasep e Cofins – entidades financeiras",
+       "d": "Instituições financeiras e equiparadas",
+       "c": "4574, 7987",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "RET – regimes especiais",
+       "d": "Incorporações imobiliárias, Minha Casa Minha Vida, creches e pré-escolas e Tributação Específica do Futebol",
+       "c": "4095, 1068, 4112, 4153, 4138, 4166, 6177",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "PGDAS-D",
+       "d": "Apuração do Simples Nacional",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "Dirbi",
+       "d": "Declaração de incentivos, renúncias, benefícios e imunidades tributárias",
+       "per": "agosto/2026",
+       "esfera": "federal"
+      }
+     ],
+     "fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/2026/Outubro/dia-20-10-2026"
+    },
+    {
+     "data": "2026-10-23",
+     "itens": [
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – rendimentos de capital",
+       "d": "Renda fixa, fundos, swap, day-trade, bolsa, juros sobre capital próprio, FII/Fiagro e demais rendimentos de capital",
+       "c": "8053, 3426, 6800, 6813, 5273, 8468, 5557, 5706, 5232, 0924, 3699, 5029, 5035, 1605",
+       "per": "2º decêndio de outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – residentes no exterior",
+       "d": "Aplicações financeiras e juros sobre capital próprio",
+       "c": "5286, 9453",
+       "per": "2º decêndio de outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRRF – outros rendimentos",
+       "d": "Prêmios de concursos, sorteios e bingos; multas e vantagens",
+       "c": "0916, 8673, 9385",
+       "per": "2º decêndio de outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IOF",
+       "d": "Crédito (PJ e PF), câmbio, aplicações financeiras, factoring, seguros e ouro",
+       "c": "1150, 7893, 4290, 5220, 6854, 6895, 3467, 4028",
+       "per": "2º decêndio de outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "PIS/Pasep",
+       "d": "Faturamento, folha de salários, PJ de direito público, não cumulativo, combustíveis, veículos, Zona Franca, bebidas frias e álcool",
+       "c": "8109, 8301, 3703, 6912, 6824, 8496, 1921, 0679, 0691, 0906",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "Cofins",
+       "d": "Cumulativa, não cumulativa, combustíveis, veículos, Zona Franca, bebidas frias e álcool",
+       "c": "2172, 5856, 6840, 8645, 1840, 0760, 0776, 0929",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IPI",
+       "d": "Automóveis, máquinas e material de transporte, tabaco (exceto cigarros), bebidas e demais produtos",
+       "c": "0676, 1097, 5110, 5123, 0668, 0821, 0838",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      }
+     ],
+     "fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/2026/Outubro/dia-23-10-2026"
+    },
+    {
+     "data": "2026-10-26",
+     "itens": [
+      {
+       "tipo": "pagamento",
+       "t": "CPSS – servidor público federal",
+       "d": "Contribuição do servidor ativo, inativo e pensionista e contribuição patronal (órgãos federais)",
+       "c": "1661, 1700, 1717, 1769, 1814, 1723, 1730, 1752",
+       "per": "2º decêndio de outubro/2026",
+       "esfera": "federal"
+      }
+     ],
+     "fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/2026/Outubro/dia-26-10-2026"
+    },
+    {
+     "data": "2026-10-30",
+     "itens": [
+      {
+       "tipo": "pagamento",
+       "t": "IRPJ – estimativa mensal",
+       "d": "Lucro real e demais entidades (inclusive financeiras)",
+       "c": "2362, 5993, 2319",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "CSLL – estimativa mensal",
+       "d": "Demais entidades e entidades financeiras",
+       "c": "2484, 2469",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRPJ – trimestral (quota única ou 1ª quota)",
+       "d": "Lucro real, presumido e arbitrado",
+       "c": "3373, 0220, 1599, 2089, 5625",
+       "per": "3º trimestre de 2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "CSLL – trimestral (quota única ou 1ª quota)",
+       "d": "Lucro real, presumido e arbitrado",
+       "c": "6012, 2030, 2372",
+       "per": "3º trimestre de 2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRPJ – ganhos em bolsa e ganho de capital do Simples",
+       "d": "Ganhos líquidos em bolsa (lucro real e presumido) e ganho de capital de ME/EPP do Simples",
+       "c": "3317, 0231, 0507",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRPF – carnê-leão, ganho de capital e renda variável",
+       "d": "Carnê-leão; ganho de capital no Brasil e no exterior, moeda estrangeira e criptoativos; ganhos líquidos em bolsa",
+       "c": "0190, 4600, 8523, 6371, 8960, 1897, 6015",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRPF – quota da declaração anual",
+       "d": "Quota do imposto apurado na declaração de 2026",
+       "c": "0211",
+       "per": "ano-calendário 2025",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "ITR – quota",
+       "d": "Quota do imposto apurado na declaração do ITR",
+       "c": "1070",
+       "per": "exercício 2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "IRRF e IOF – outros",
+       "d": "FII (distribuição semestral), ganho de capital de PJ no exterior e IOF sobre derivativos",
+       "c": "5232, 0473, 2927",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "PIS/Pasep e Cofins – retenção na compra de autopeças",
+       "d": "Retenção pelas fabricantes de veículos e máquinas",
+       "c": "3770, 3746",
+       "per": "1ª quinzena de outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "pagamento",
+       "t": "Parcelamentos",
+       "d": "Parcelamentos na RFB e na PGFN, Refis, Paes, Pert, PRT, PRR e parcelamentos do Simples Nacional e do MEI (DAS)",
+       "c": "vários (ver Receita)",
+       "per": "outubro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "DCTFWeb",
+       "d": "Declaração de débitos e créditos tributários federais",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "DeCripto",
+       "d": "Declaração de operações com criptoativos",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "DME",
+       "d": "Operações liquidadas em moeda em espécie",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "DOI",
+       "d": "Declaração sobre operações imobiliárias (cartórios)",
+       "per": "setembro/2026",
+       "esfera": "federal"
+      }
+     ],
+     "fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/2026/Outubro/dia-30-10-2026"
+    }
+   ]
+  }
+ ]
+}

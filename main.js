@@ -224,6 +224,61 @@
   });
 })();
 
+// Agenda Tributária (agenda.html): meses em agenda.json; mês atual aberto, seletor para os anteriores
+(function(){
+  var lista=document.getElementById('ag-lista');if(!lista)return;
+  var sel=document.getElementById('ag-mes'),filtros=document.getElementById('ag-filtros'),tit=document.getElementById('ag-titulo'),rod=document.getElementById('ag-rodape');
+  var MESES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  var SEM=['dom','seg','ter','qua','qui','sex','sáb'];
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+  function nomeMes(m){var p=m.split('-');return MESES[+p[1]-1]+' de '+p[0]}
+  var hoje=new Date();hoje.setHours(0,0,0,0);
+  var atual=hoje.getFullYear()+'-'+('0'+(hoje.getMonth()+1)).slice(-2);
+  var dados={},tipo='',mes='';
+  function desenhar(){
+    var M=dados[mes];lista.innerHTML='';if(!M)return;
+    tit.textContent='Agenda de '+nomeMes(mes);
+    var proximoMarcado=false,ord=M.dias.slice().sort(function(a,b){return a.data<b.data?-1:1});
+    // No mês atual, os próximos vencimentos vêm primeiro e os já vencidos ficam no fim
+    var fut=ord.filter(function(d){return new Date(d.data+'T00:00:00')>=hoje}),pas=ord.filter(function(d){return new Date(d.data+'T00:00:00')<hoje});
+    var titPas=null;if(fut.length&&pas.length){titPas=el('h2','ag-sub','Já vencidos neste mês');}
+    fut.concat(pas).forEach(function(d,k){if(titPas&&k===fut.length)lista.appendChild(titPas);
+      var itens=d.itens.filter(function(i){return !tipo||i.tipo===tipo});if(!itens.length)return;
+      var dt=new Date(d.data+'T00:00:00'),passado=dt<hoje;
+      var c=el('article','ag-dia');if(passado)c.classList.add('passado');
+      var bx=el('div','ag-data');bx.appendChild(el('span','n gold-text',d.data.slice(8,10)));bx.appendChild(el('span','s',SEM[dt.getDay()]+' · '+MESES[dt.getMonth()].slice(0,3)));
+      if(!passado&&!proximoMarcado){proximoMarcado=true;c.classList.add('proximo');bx.appendChild(el('span','tag',+dt===+hoje?'hoje':'próximo'))}
+      c.appendChild(bx);
+      var ul=el('ul','ag-itens');
+      itens.forEach(function(i){
+        var li=el('li'),t=el('div','t');t.appendChild(el('span',null,i.t));t.appendChild(el('span','ag-tipo '+i.tipo,i.tipo==='declaracao'?'Declaração':'Pagamento'));li.appendChild(t);
+        if(i.d)li.appendChild(el('div','d',i.d));
+        var c2=[];if(i.per)c2.push('Período: '+i.per);if(i.c&&i.c!=='—')c2.push('Códigos: '+i.c);
+        if(c2.length)li.appendChild(el('div','c',c2.join(' · ')));
+        ul.appendChild(li);
+      });
+      var box=el('div');box.appendChild(ul);
+      if(d.fonte){var a=el('a','ag-fonte','Conferir este dia na Receita Federal');a.href=d.fonte;a.target='_blank';a.rel='noopener';box.appendChild(a)}
+      c.appendChild(box);lista.appendChild(c);
+    });
+    if(!lista.children.length)lista.appendChild(el('p','note','Nada deste tipo neste mês.'));
+    rod.innerHTML='';
+    rod.appendChild(document.createTextNode('Agenda de referência montada pelo escritório a partir da Agenda Tributária oficial (atualizada em '+M.atualizado.split('-').reverse().join('/')+'). Datas podem mudar por ato posterior: antes de pagar ou transmitir, confira na fonte. '));
+    (M.fontes||[]).forEach(function(f,k){var a=el('a',null,f.nome);a.href=f.url;a.target='_blank';a.rel='noopener';if(k)rod.appendChild(document.createTextNode(' · '));rod.appendChild(a)});
+    Array.prototype.forEach.call(filtros.children,function(b){b.setAttribute('aria-pressed',b.dataset.t===tipo?'true':'false')});
+  }
+  fetch('agenda.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(j){
+    (j.meses||[]).forEach(function(m){dados[m.mes]=m});
+    var ms=Object.keys(dados).sort().reverse();if(!ms.length){lista.innerHTML='';lista.appendChild(el('p','note','A agenda ainda não foi publicada.'));return}
+    var q=new URLSearchParams(location.search).get('mes');
+    mes=dados[q]?q:(dados[atual]?atual:ms.filter(function(m){return m<=atual})[0]||ms[ms.length-1]);
+    ms.forEach(function(m){var o=el('option',null,nomeMes(m)+(m===atual?' (mês atual)':''));o.value=m;sel.appendChild(o)});sel.value=mes;
+    sel.addEventListener('change',function(){mes=sel.value;var u=new URL(location.href);if(mes===atual)u.searchParams.delete('mes');else u.searchParams.set('mes',mes);history.replaceState(null,'',u);desenhar()});
+    [['','Tudo'],['pagamento','Pagamentos'],['declaracao','Declarações']].forEach(function(x){var b=el('button','chip',x[1]);b.type='button';b.dataset.t=x[0];b.addEventListener('click',function(){tipo=x[0];desenhar()});filtros.appendChild(b)});
+    desenhar();
+  }).catch(function(){lista.innerHTML='';lista.appendChild(el('p','note','Não foi possível carregar a agenda agora. Tente recarregar a página.'))});
+})();
+
 // Página inscricao.html: confirma ou cancela a inscrição pelo link do e-mail (só com clique no botão)
 (function(){
   var box=document.getElementById('inscricao-box');if(!box)return;
