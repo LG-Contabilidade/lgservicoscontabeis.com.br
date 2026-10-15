@@ -174,7 +174,7 @@
     Promise.all([fetch('noticias.json',{cache:'no-cache'}).then(function(r){return r.json()}),publicacoes()]).then(function(x){
       var D=juntar(x[0],x[1]),id=new URLSearchParams(location.search).get('id'),n=D.itens.filter(function(i){return i.id===id})[0];
       boxNo.innerHTML='';
-      if(!n){document.getElementById('noticia-titulo').textContent='Notícia não encontrada';var p0=el('p',null,'Veja todas as notícias no ');var v=el('a',null,'Radar Tributário');v.href='noticias.html';p0.appendChild(v);boxNo.appendChild(p0);return}
+      if(!n){document.getElementById('noticia-titulo').textContent='Notícia ainda não publicada';var p0=el('p',null,'Esta notícia ainda não entrou no site ou foi retirada. As notícias do dia costumam ser publicadas no fim da manhã: tente de novo mais tarde. Enquanto isso, veja as últimas notícias no ');var v=el('a',null,'Radar Tributário');v.href='noticias.html';p0.appendChild(v);p0.appendChild(document.createTextNode('.'));boxNo.appendChild(p0);return}
       document.title=n.titulo+' | Radar Tributário | LG Serviços Contábeis';
       var md=document.querySelector('meta[name="description"]');if(md)md.setAttribute('content',n.resumo);
       document.getElementById('noticia-eyebrow').textContent='Radar Tributário · '+editoriaDe(n);
