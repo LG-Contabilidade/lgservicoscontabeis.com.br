@@ -23,6 +23,7 @@
         return crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},key,b64(sig.trim()),enc.encode(dados)).then(function(ok){if(!ok)return null;try{var o=JSON.parse(dados);o._pub=dataPlanilha(l[0]);o._ord=n+1;return o}catch(e){return null}},function(){return null})}));
     }).then(function(a){return a.filter(Boolean)}).catch(function(){return []});
   }
+  window.lgPublicacoes=publicacoes;
   function juntar(D,P){
     var porId={},prim={};P.forEach(function(p){if(!p.id)return;if(!prim[p.id])prim[p.id]=p._pub;porId[p.id]=p;if(prim[p.id])p._pub=prim[p.id]});
     var rem={};Object.keys(porId).forEach(function(id){if(porId[id].tipo==='remover')rem[id]=1});
@@ -263,15 +264,19 @@
     });
     if(!lista.children.length)lista.appendChild(el('p','note','Nada deste tipo neste mês.'));
     rod.innerHTML='';
-    rod.appendChild(document.createTextNode('Agenda de referência montada pelo escritório a partir da Agenda Tributária oficial (atualizada em '+M.atualizado.split('-').reverse().join('/')+'). Datas podem mudar por ato posterior: antes de pagar ou transmitir, confira na fonte. '));
+    rod.appendChild(document.createTextNode('Agenda de referência montada pelo escritório a partir da Agenda Tributária oficial '+(M.atualizado?'(atualizada em '+M.atualizado.split('-').reverse().join('/')+')':'')+'. Datas podem mudar por ato posterior: antes de pagar ou transmitir, confira na fonte. '));
     (M.fontes||[]).forEach(function(f,k){var a=el('a',null,f.nome);a.href=f.url;a.target='_blank';a.rel='noopener';if(k)rod.appendChild(document.createTextNode(' · '));rod.appendChild(a)});
     Array.prototype.forEach.call(filtros.children,function(b){b.setAttribute('aria-pressed',b.dataset.t===tipo?'true':'false')});
     var est=document.querySelector('#ag-estados .ag-links');
     if(est){est.innerHTML='';[['rio-de-janeiro','Rio de Janeiro'],['sao-paulo','São Paulo'],['minas-gerais','Minas Gerais'],['espirito-santo','Espírito Santo']].forEach(function(e){
       var a=el('a','btn btn-line',e[1]+' – '+MESES[+mes.slice(5)-1]);a.href='https://www.contadores.cnt.br/agenda-tributaria/estadual/'+e[0]+'/'+mes.slice(0,4)+'/'+mes.slice(5)+'.html';a.target='_blank';a.rel='noopener';est.appendChild(a)})}
   }
-  fetch('agenda.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(j){
+  // Meses do agenda.json + meses aprovados por e-mail (tipo "agenda" na planilha assinada; o mais recente de cada mês vale)
+  Promise.all([fetch('agenda.json',{cache:'no-cache'}).then(function(r){return r.json()}),window.lgPublicacoes?window.lgPublicacoes():Promise.resolve([])]).then(function(x){
+    var j=x[0],P=x[1]||[];
     (j.meses||[]).forEach(function(m){dados[m.mes]=m});
+    var rem={};P.forEach(function(p){if(p.tipo==='remover'&&p.id)rem[p.id]=1});
+    P.forEach(function(p){if(p.tipo==='agenda'&&/^\d{4}-\d{2}$/.test(p.mes||'')&&Array.isArray(p.dias)&&!rem[p.id])dados[p.mes]=p});
     var ms=Object.keys(dados).sort().reverse();if(!ms.length){lista.innerHTML='';lista.appendChild(el('p','note','A agenda ainda não foi publicada.'));return}
     var q=new URLSearchParams(location.search).get('mes');
     mes=dados[q]?q:(dados[atual]?atual:ms.filter(function(m){return m<=atual})[0]||ms[ms.length-1]);
