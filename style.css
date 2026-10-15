@@ -35,10 +35,10 @@ p{margin:0}
 .brand .lg{font-family:var(--f-display);font-weight:600;font-size:40px;line-height:.9;letter-spacing:.03em}
 .brand .sub{display:block;font-size:10.5px;letter-spacing:.32em;color:var(--gold-soft);margin-top:4px}
 .nav{display:flex;align-items:center;gap:24px}
-.nav a{color:var(--text);text-decoration:none;font-size:15px;letter-spacing:.04em}
+.nav a{color:var(--text);text-decoration:none;font-size:15px;letter-spacing:.04em;white-space:nowrap}
 .nav a:hover,.nav a[aria-current="page"]{color:var(--gold-2)}
 .menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--gold-soft);border-radius:8px;padding:8px 12px;font:inherit;font-size:14px;cursor:pointer}
-@media (max-width:860px){
+@media (max-width:1080px){
   .menu-btn{display:block}
   .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:flex-start;gap:0;background:var(--ink-2);border-bottom:1px solid var(--line);padding:8px 20px 16px}
   .nav.open{display:flex}

@@ -15,6 +15,10 @@
     {
      "nome": "Lei nº 8.036/1990 (FGTS), art. 15 – Planalto",
      "url": "https://www.planalto.gov.br/ccivil_03/leis/L8036compilada.htm"
+    },
+    {
+     "nome": "Comunicado SRE 9/2026 – Agenda Tributária Paulista de outubro/2026",
+     "url": "https://legislacao.fazenda.sp.gov.br/Paginas/Comunicado-SRE-9-de-2026.aspx"
     }
    ],
    "dias": [
@@ -285,6 +289,15 @@
        "d": "Declaração de incentivos, renúncias, benefícios e imunidades tributárias",
        "per": "agosto/2026",
        "esfera": "federal"
+      },
+      {
+       "tipo": "declaracao",
+       "t": "EFD ICMS/IPI",
+       "d": "Escrituração Fiscal Digital do ICMS e do IPI. Cada estado fixa o prazo: em São Paulo é o dia 20; vários estados adotam o dia 25. Confira o prazo na Sefaz do seu estado.",
+       "per": "setembro/2026",
+       "esfera": "estadual",
+       "f": "https://legislacao.fazenda.sp.gov.br/Paginas/Comunicado-SRE-9-de-2026.aspx",
+       "fn": "Comunicado SRE 9/2026 (SP)"
       }
      ],
      "fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/2026/Outubro/dia-20-10-2026"
@@ -486,6 +499,20 @@
       }
      ],
      "fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/2026/Outubro/dia-30-10-2026"
+    },
+    {
+     "data": "2026-10-28",
+     "itens": [
+      {
+       "tipo": "declaracao",
+       "t": "DeSTDA",
+       "d": "Declaração de Substituição Tributária, Diferencial de Alíquota e Antecipação, entregue pelas empresas do Simples Nacional",
+       "per": "setembro/2026",
+       "esfera": "estadual",
+       "f": "https://legislacao.sef.sc.gov.br/legtrib_internet/html/Expo_mo/2016/Dec_16_0955_Alt_3771_3772_EM_268.pdf",
+       "fn": "Ajuste SINIEF 12/2015, na redação do Ajuste SINIEF 15/2016"
+      }
+     ]
     }
    ]
   }
