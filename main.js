@@ -254,7 +254,7 @@
         var li=el('li'),t=el('div','t');t.appendChild(el('span',null,i.t));t.appendChild(el('span','ag-tipo '+i.tipo,i.tipo==='declaracao'?'Declaração':'Pagamento'));li.appendChild(t);
         if(i.d)li.appendChild(el('div','d',i.d));
         var c2=[];if(i.per)c2.push('Período: '+i.per);if(i.c&&i.c!=='—')c2.push('Códigos: '+i.c);
-        if(c2.length)li.appendChild(el('div','c',c2.join(' · ')));
+        if(c2.length||i.f){var cc=el('div','c',c2.join(' · '));if(i.f){if(c2.length)cc.appendChild(document.createTextNode(' · '));var fa=el('a',null,'Fonte: '+(i.fn||'oficial'));fa.href=i.f;fa.target='_blank';fa.rel='noopener';cc.appendChild(fa)}li.appendChild(cc)}
         ul.appendChild(li);
       });
       var box=el('div');box.appendChild(ul);
