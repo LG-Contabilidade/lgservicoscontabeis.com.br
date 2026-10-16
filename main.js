@@ -19,8 +19,9 @@
     var url='https://docs.google.com/spreadsheets/d/'+PLANILHA+'/gviz/tq?tqx=out:csv&t='+Date.now();
     return Promise.all([fetch(url).then(function(r){return r.text()}),crypto.subtle.importKey('raw',b64(CHAVE_PUB),{name:'ECDSA',namedCurve:'P-256'},false,['verify'])]).then(function(x){
       var linhas=csv(x[0]).slice(1),key=x[1],enc=new TextEncoder();
-      return Promise.all(linhas.map(function(l,n){var dados=l[1],sig=l[2];if(!dados||!sig)return null;
-        return crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},key,b64(sig.trim()),enc.encode(dados)).then(function(ok){if(!ok)return null;try{var o=JSON.parse(dados);o._pub=dataPlanilha(l[0]);o._ord=n+1;return o}catch(e){return null}},function(){return null})}));
+      // Cada linha é conferida separadamente: uma linha com defeito (ex.: assinatura "#ERROR!") é ignorada sem derrubar as outras
+      return Promise.all(linhas.map(function(l,n){var dados=l[1],sig=(l[2]||'').trim();if(!dados||!/^[A-Za-z0-9+\/]{86}==$/.test(sig))return null;
+        try{return crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},key,b64(sig),enc.encode(dados)).then(function(ok){if(!ok)return null;try{var o=JSON.parse(dados);o._pub=dataPlanilha(l[0]);o._ord=n+1;return o}catch(e){return null}},function(){return null})}catch(e){return null}}));
     }).then(function(a){return a.filter(Boolean)}).catch(function(){return []});
   }
   window.lgPublicacoes=publicacoes;
