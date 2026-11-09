@@ -67,6 +67,9 @@ body.det footer h3{font-size:38px}
 body.det footer p{font-size:20px}
 body.det footer .wa{font-size:27px}
 body.det footer img{width:150px;height:150px}
+
+/* Mascote no canto superior direito (desde 09/11/2026) */
+.mascote{position:absolute;top:46px;right:52px;height:350px;max-width:400px;object-fit:contain;object-position:right top;z-index:3;filter:drop-shadow(0 18px 30px rgba(0,0,0,.65)) drop-shadow(0 0 40px rgba(220,184,98,.18))}
 </style></head><body><div class="ledger"></div><div class="art" id="art"></div><div class="frame"></div><div class="wrap" id="w"></div>
 <script>
 const P=__POST__;
@@ -77,6 +80,7 @@ osc:'<svg viewBox="0 0 200 200"><path d="M100 150s-50-30-50-66a26 26 0 0 1 50-10
 dp:'<svg viewBox="0 0 200 200"><rect x="100" y="30" width="84" height="80" rx="8"/><path d="M100 52h84M122 20v20M162 20v20"/><path d="M116 70h12M136 70h12M156 70h12M116 90h12M136 90h12"/><circle cx="60" cy="90" r="22"/><path d="M20 180c0-26 18-44 40-44s40 18 40 44"/><circle cx="130" cy="150" r="14"/><path d="M104 190c0-16 12-28 26-28s26 12 26 28"/></svg>',
 geral:'<svg viewBox="0 0 200 200"><path d="M50 20h80l30 30v130H50z"/><path d="M130 20v30h30"/><path d="M68 70h70M68 90h70M68 110h70M68 130h44"/><circle cx="130" cy="156" r="18"/><path d="M122 172l-6 20 14-8 14 8-6-20"/></svg>'};
 document.getElementById('art').innerHTML=ART[P.tema]||ART.geral;
+if(P.mascote){const m=document.createElement('img');m.className='mascote';m.src=P.mascote;m.alt='';m.onerror=()=>m.remove();m.onload=()=>{document.getElementById('art').style.display='none'};document.body.appendChild(m);}
 if(P.blocos&&P.blocos.length)document.body.classList.add('det');
 const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const rich=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
